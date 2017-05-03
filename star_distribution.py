@@ -7,46 +7,46 @@ def vel(r1):
 
     ar1 = math.fabs(r1)
     if (ar1 <= 5.0):
-        v = 1.4*ar1*math.exp(-ar1/20.0)
+        v1 = 1.4*ar1*math.exp(-ar1/20.0)
     elif (ar1 > 5.0 and ar1 < 6.0):
         max = 1.4*5*math.exp(-5.0/20.0)
         min = 5.0
         m = (max - min)/(-1.0)
-        v = m*(ar1 - 5.0) + max
+        v1 = m*(ar1 - 5.0) + max
     else:
-        v = 5.0
+        v1 = 5.0
 
-    return v
+    return v1
 
 def vel(r2):
 
     ar2 = math.fabs(r2)
     if (ar2 <= 5.0):
-        v = 1.4*ar2*math.exp(-ar2/20.0)
+        v2 = 1.4*ar2*math.exp(-ar2/20.0)
     elif (ar2 > 5.0 and ar2 < 6.0):
         max = 1.4*5*math.exp(-5.0/20.0)
         min = 5.0
         m = (max - min)/(-1.0)
-        v = m*(ar2 - 5.0) + max
+        v2 = m*(ar2 - 5.0) + max
     else:
-        v = 5.0
+        v2 = 5.0
 
-    return v
+    return v2
 
 def vel(r3):
 
     ar3 = math.fabs(r3)
     if (ar3 <= 5.0):
-        v = 1.4*ar3*math.exp(-ar3/20.0)
+        v3 = 1.4*ar3*math.exp(-ar3/20.0)
     elif (ar3 > 5.0 and ar3 < 6.0):
         max = 1.4*5*math.exp(-5.0/20.0)
         min = 5.0
         m = (max - min)/(-1.0)
-        v = m*(ar3 - 5.0) + max
+        v3 = m*(ar3 - 5.0) + max
     else:
-        v = 5.0
+        v3 = 5.0
 
-    return v
+    return v3
 
 
 
@@ -66,16 +66,18 @@ def spiral():
     gamma = np.zeros( (npts2) )
     beta = np.zeros( (npts3) )
 
-    n = 0
-    while (n < npts1):
-        omega[n] = math.fabs(vel(r1[n])/r1[n])
-        n += 1
-    while (n < npts2):
-        gamma[n] = math.fabs(vel(r2[n])/r2[n])
-        n += 1
-    while (n < npts3):
-        beta[n] = math.fabs(vel(r3[n])/r3[n])
-        n += 1
+    n1 = 0
+    while (n1 < npts1):
+        omega[n1] = math.fabs(vel(r1[n1])/r1[n1])
+        n1 += 1
+    n2 = 0
+    while (n2 < npts2):
+        gamma[n2] = math.fabs(vel(r2[n2])/r2[n2])
+        n2 += 1
+    n3 = 0
+    while (n3 < npts3):
+        beta[n3] = math.fabs(vel(r3[n3])/r3[n3])
+        n3 += 1
 
 
     t = 0.0
@@ -91,12 +93,12 @@ def spiral():
 
         x1 = r1*np.cos(omega*t)
         y1 = r1*np.sin(omega*t)
-        x2 = r2 * np.cos(gamma * t)
-        y2 = r2 * np.sin(gamma * t)
-        x3 = r3 * np.cos(beta * t)
-        y3 = r3 * np.sin(beta * t)
+        x2 = r2*np.cos(gamma*t)
+        y2 = r2*np.sin(gamma*t)
+        x3 = r3*np.cos(beta*t)
+        y3 = r3*np.sin(beta*t)
 
-        plt.plot(x1,y1,'ro', x2, y2 + 5, 'bo', x3, y3 - 5, 'yo')
+        plt.plot(x1,y1,'ro',x2,y2+5,'bo',x3,y3-5,'yo')
 
 
         plt.axis([1.2*rmin,1.2*rmax,1.2*rmin,1.2*rmax]) # the axis function takes four variables (xmin,xmax,ymin,ymax)
