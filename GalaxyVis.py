@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import mpl_toolkits.mplot3d.axes3d as p3
+#from matplotlib import animation
 
 def vel(r):
     """
@@ -30,35 +31,38 @@ def vel(r):
 
 
 
-def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0):
+def spiral(rmin=-20, rmax=20, npts1=10, npts2=10, npts3=10, t=0.0, tmax=20.0, dt=0.04, iframe=0):
     """Function that creates spiral shape. Plots x and y-positions in terms of cosine and sine
     functions of angular frequency (omega, beta, gamma) using values of radii and associated
     velocity.
 
     :param rmin: minimum radius
     :param rmax: maximum radius
-    :param npts: number of points for 1st line #to make redgalaxy.mp4, set npts=10
+    #:param npts: number of points #to make redgalaxy.mp4, set npts=10
     :param t: time start          #to make galaxy.mp4, set npts=10
     :param tmax: time end         #to make spiral_distribution.mp4, set npts1=16, npts2=8, npts3=4
     :param dt: time interval      #to make 3Galaxy.mp4, set npts=1000
     :param iframe: inline frame
+    :param npts1: number of points for 1st line
+    :param npts2: number of points for 2nd line
+    :param npts3: number of points for 3rd line
     :return: spiral
     """
 
-    r = np.arange(npts, dtype=np.float64) * (rmax - rmin) / (npts - 1.0) + rmin
-    #r1 = np.arange(npts1, dtype=np.float64)*(rmax - rmin)/(npts1 - 1.0) + rmin #reinstate r1,r2,r3 for star_distribution.mp4
-    #r2 = np.arange(npts2, dtype=np.float64) * (rmax - rmin) / (npts2 - 1.0) + rmin
-    #r3 = np.arange(npts3, dtype=np.float64) * (rmax - rmin) / (npts3 - 1.0) + rmin #to obtain 3Galaxy.mp4, keep info about the third line
+    #r = np.arange(npts, dtype=np.float64) * (rmax - rmin) / (npts - 1.0) + rmin
+    r1 = np.arange(npts1, dtype=np.float64)*(rmax - rmin)/(npts1 - 1.0) + rmin #reinstate r1,r2,r3 for star_distribution.mp4
+    r2 = np.arange(npts2, dtype=np.float64) * (rmax - rmin) / (npts2 - 1.0) + rmin
+    r3 = np.arange(npts3, dtype=np.float64) * (rmax - rmin) / (npts3 - 1.0) + rmin #to obtain 3Galaxy.mp4, keep info about the third line
 
-    v = np.array(vel(r)) #reinstate v1,v2,v3 for star_distribution.mp4
-    #v1 = np.array(vel(r1))
-    #v2 = np.array(vel(r2))
-    #v3 = np.array(vel(r3))
+    #v = np.array(vel(r)) #reinstate v1,v2,v3 for star_distribution.mp4
+    v1 = np.array(vel(r1))
+    v2 = np.array(vel(r2))
+    v3 = np.array(vel(r3))
 
-    omega = np.absolute(v/r) #reinstate kappa, gamma, and beta for star_distribution.mp4
-    #kappa = np.absolute(v1/r1)
-    #gamma = np.absolute(v2/r2)
-    #beta = np.absolute(v3/r3)
+    #omega = np.absolute(v/r) #reinstate kappa, gamma, and beta for star_distribution.mp4
+    kappa = np.absolute(v1/r1)
+    gamma = np.absolute(v2/r2)
+    beta = np.absolute(v3/r3)
 
 
     while (t < tmax):
@@ -69,20 +73,23 @@ def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0):
         fig = plt.figure()
         ax = p3.Axes3D(fig)
 
-        x = r*np.cos(omega*t)
-        y = r*np.sin(omega*t)
-        z = 0 #reinstate the below lines for if you have lines with different number of points
-        #x1 = r1*np.cos(omega*t)
-        #y1 = r1*np.sin(omega*t)
-        #z1 = 0 #to make Opposite.mp4, remove the 3rd axis (i.e. z)
-        #x2 = r2*np.cos(gamma*t)
-        #y2 = -r2*np.sin(gamma*t) #to obtain 3Galaxy.mp4, make this positive
-        #z2 = 0
-        #x3 = r3*np.cos(beta*t)
-        #y3 = r3*np.sin(beta*t)
+        #anim = animation.FuncAnimation(fig, spiral, frames=200, interval=20, blit=True)
 
-        ax.plot(x-35,y,z-10,'r-',x-30,y+5,z-5,'bo',x-40,y-5,z-15,'yo') #these are the three lines of the first galaxy
-        ax.plot(x+35,y,z+10,'b-',x+40,y+5,z+15,'yo',x+30,y-5,z+5,'ro') #these are the three lines of the second galaxy
+        #x = r*np.cos(omega*t)
+        #y = r*np.sin(omega*t)
+        #z = 0 #reinstate the below lines for if you have lines with different number of points
+        x1 = r1*np.cos(kappa*t)
+        y1 = r1*np.sin(kappa*t)
+        z1 = 0 #to make Opposite.mp4, remove the 3rd axis (i.e. z)
+        x2 = r2*np.cos(gamma*t)
+        y2 = -r2*np.sin(gamma*t) #to obtain 3Galaxy.mp4, make this positive
+        z2 = 0
+        x3 = r3*np.cos(beta*t)
+        y3 = r3*np.sin(beta*t)
+        z3 = 0
+
+        ax.plot(x1-35,y1,z1-10,'ro',x2-30,y2+5,z2-5,'bo',x3-40,y3-5,z3-15,'yo') #these are the three lines of the first galaxy
+        ax.plot(x1+35,y1,z1+10,'bo',x2+40,y2+5,z2+15,'yo',x3+30,y3-5,z3+5,'ro') #these are the three lines of the second galaxy
 
         ax.set_xlim3d([-60.0, 60.0])
         ax.set_xlabel('X')
@@ -94,6 +101,8 @@ def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0):
         ax.set_zlabel('Z')
 
         ax.set_title('3D Galaxy')
+
+        ax.view_init(elev=18*t,azim=0.)
 
 
         #plt.plot(x1-35,y1,'r-',x2+35,y2,'b-') #to make Opposite.mp4, reinstate this line
@@ -107,14 +116,16 @@ def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0):
         #plt.axis("off")
 
         #f = plt.gcf() # gcf returns the current figure
-        #f.set_size_inches(18.0,6.0,6.0) #to make redgalaxy.mp4, galaxy.mp4, and star_distribution.mp4, change 18.0 to 6.0
+        #f.set_size_inches(18.0,9.0,4.5) #to make redgalaxy.mp4, galaxy.mp4, and star_distribution.mp4, change 18.0 to 6.0
 
         outfile = "GalaxyVis_%04d.png" % iframe
         plt.savefig(outfile)
 
+        #FFwriter = animation.FFMpegWriter()
+        #anim.save('GalaxyVisualization.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
+
         iframe += 1
         t += dt
-
 
 
 if __name__== "__main__":
