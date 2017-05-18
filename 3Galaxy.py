@@ -30,16 +30,16 @@ def vel(r):
 
 
 
-def spiral(rmin=-20, rmax=20, npts1=16, npts2=8, npts3=4, t=0.0, tmax=20.0, dt=0.04, iframe=0): #to make galaxy.mp4, make npts1=npts2=npts3=10
+def spiral(rmin=-20, rmax=20, npts1=1000, npts2=1000, npts3=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0):
     """Function that creates spiral shape. Plots x and y-positions in terms of cosine and sine
     functions of angular frequency (omega, beta, gamma) using values of radii and associated
     velocity.
 
     :param rmin: minimum radius
     :param rmax: maximum radius
-    :param npts1: number of points for 1st line
-    :param npts2: number of points for 2nd line
-    :param npts3: number of points for 3rd line
+    :param npts1: number of points for 1st line #to make redgalaxy.mp4, set npts=10
+    :param npts2: number of points for 2nd line #to make galaxy.mp4, set npts1=npts2=npts3=10
+    :param npts3: number of points for 3rd line #to make spiral_distribution.mp4, set npts1=16, npts2=8, npts3=4
     :param t: time start
     :param tmax: time end
     :param dt: time interval
@@ -72,16 +72,17 @@ def spiral(rmin=-20, rmax=20, npts1=16, npts2=8, npts3=4, t=0.0, tmax=20.0, dt=0
         x3 = r3*np.cos(beta*t)
         y3 = r3*np.sin(beta*t)
 
-        plt.plot(x1,y1,'ro',x2,y2+5,'bo',x3,y3-5,'yo') #to make redgalaxy.mp4, only plot x1,y1,'ro'
+        plt.plot(x1-40,y1,'r-',x2,y2,'b-',x3+40,y3,'y-') #to make redgalaxy.mp4, only plot x1,y1,'ro'
+        #to make galaxy.mp4 and star_distribution.mp4, plot (x1,y1,'ro',x2,y2+5,'bo',x3,y3-5,'yo')
 
-
-        plt.axis([1.2*rmin,1.2*rmax,1.2*rmin,1.2*rmax]) # the axis function takes four variables (xmin,xmax,ymin,ymax)
+        plt.axis([3.0*rmin,3.0*rmax,rmin,rmax]) # the axis function takes four variables (xmin,xmax,ymin,ymax)
+        #to make redgalaxy.mp4, galaxy.mp4, and star_distribution.mp4, multiply rmin and rmax by 1.2 for all four entries
         #plt.axis("off")
 
         f = plt.gcf() # gcf returns the current figure
-        f.set_size_inches(6.0,6.0)
+        f.set_size_inches(18.0,6.0) #to make redgalaxy.mp4, galaxy.mp4, and star_distribution.mp4, change 18.0 to 6.0
 
-        outfile = "stardistribution_%04d.png" % iframe
+        outfile = "3Galaxy_%04d.png" % iframe
         plt.savefig(outfile)
 
         iframe += 1
