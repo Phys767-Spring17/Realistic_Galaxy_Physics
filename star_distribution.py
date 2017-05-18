@@ -1,9 +1,19 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# define the rotation curve
 
 def vel(r):
+    """
+    vel(r) represents the velocity as a function of radius and thus defines the rotation curve.
+     To obtain a spiral shape, we make the value of this function larger at smaller radii.
+
+    In this case, for radii (ar) less than or equal to 5 units, v=1.4(ar)exp(-ar/20).
+    For ar between 5 and 6, v ranges between 5.0 and 1.4(5)exp(-5/20).
+    For ar greater than or equal to 6, v is a constant 5.
+
+    :param r: radius
+    :return: velocity
+    """
 
     ar = np.abs(r)
     if np.any(ar <= 5.0):
@@ -20,7 +30,22 @@ def vel(r):
 
 
 
-def spiral(rmin=-20, rmax=20, npts1=16, npts2=8, npts3=4, t=0.0, tmax=20.0, dt=0.04, iframe=0):
+def spiral(rmin=-20, rmax=20, npts1=16, npts2=8, npts3=4, t=0.0, tmax=20.0, dt=0.04, iframe=0): #to make galaxy.mp4, make npts1=npts2=npts3=10
+    """Function that creates spiral shape. Plots x and y-positions in terms of cosine and sine
+    functions of angular frequency (omega, beta, gamma) using values of radii and associated
+    velocity.
+
+    :param rmin: minimum radius
+    :param rmax: maximum radius
+    :param npts1: number of points for 1st line
+    :param npts2: number of points for 2nd line
+    :param npts3: number of points for 3rd line
+    :param t: time start
+    :param tmax: time end
+    :param dt: time interval
+    :param iframe: inline frame
+    :return: spiral
+    """
 
     r1 = np.arange(npts1, dtype=np.float64)*(rmax - rmin)/(npts1 - 1.0) + rmin
     r2 = np.arange(npts2, dtype=np.float64) * (rmax - rmin) / (npts2 - 1.0) + rmin
@@ -47,7 +72,7 @@ def spiral(rmin=-20, rmax=20, npts1=16, npts2=8, npts3=4, t=0.0, tmax=20.0, dt=0
         x3 = r3*np.cos(beta*t)
         y3 = r3*np.sin(beta*t)
 
-        plt.plot(x1,y1,'ro',x2,y2+5,'bo',x3,y3-5,'yo')
+        plt.plot(x1,y1,'ro',x2,y2+5,'bo',x3,y3-5,'yo') #to make redgalaxy.mp4, only plot x1,y1,'ro'
 
 
         plt.axis([1.2*rmin,1.2*rmax,1.2*rmin,1.2*rmax]) # the axis function takes four variables (xmin,xmax,ymin,ymax)
