@@ -60,8 +60,8 @@ def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0):
         x = r*np.cos(omega*t)
         y = r*np.sin(omega*t)
 
-        ax.plot(x-35.0,y,zs=-10.0,zdir='z',color='red',linestyle='solid')
-        ax.plot(x+35.0,-y,zs=10.0,zdir='z',color='blue',linestyle='solid')
+        ax.plot(x-35.0,y,zs=-10.0,zdir='z',color='red',linestyle='solid',linewidth=12)
+        ax.plot(x+35.0,-y,zs=10.0,zdir='z',color='blue',linestyle='solid',linewidth=12)
 
         ax.set_xlim3d([-60.0, 60.0])
         ax.set_xlabel('X')
