@@ -30,9 +30,9 @@ def vel(r):
 
 
 
-def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0):
+def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0,):
     """Function that creates spiral shape. Plots x and y-positions in terms of cosine and sine
-    functions of angular frequency (omega, beta, gamma) using values of radii and associated
+    functions of angular frequency (omega) using values of radii and associated
     velocity.
 
     :param rmin: minimum radius
