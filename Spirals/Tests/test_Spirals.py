@@ -1,4 +1,4 @@
-from Spirals import vel
+from Spirals.Spirals import vel
 import numpy as np
 import pytest
 
