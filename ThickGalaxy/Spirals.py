@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import mpl_toolkits.mplot3d.axes3d as p3
 
 
-
 def vel(r):
     """
     vel(r) represents the velocity as a function of radius and thus defines the rotation curve.
@@ -31,7 +30,6 @@ def vel(r):
     return v
 
 
-
 def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0,):
     """Function that creates spiral shape. Plots x and y-positions in terms of cosine and sine
     functions of angular frequency (omega) using values of radii and associated
@@ -50,11 +48,11 @@ def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0,):
     r = np.arange(npts, dtype=np.float64)*(rmax - rmin)/(npts - 1.0) + rmin
     v = np.array(vel(r))
     omega = np.abs(v/r)
-    #If npts per line is different, like star_distribution.mp4, AzimuthView.mp4, and Galaxies.mp4, you need r1,r2,r3,v1,v2,v3, omega, beta, gamma
+    # For star_distribution.mp4, AzimuthView.mp4, and Galaxies.mp4, use r1,r2,r3,v1,v2,v3,omega,beta,gamma
 
-    while (t < tmax):
+    while t < tmax:
 
-        plt.clf() # clf clears the current figure
+        plt.clf()  # clf clears the current figure
 
         fig = plt.figure()
         ax = p3.Axes3D(fig)
@@ -62,8 +60,8 @@ def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0,):
         x = r*np.cos(omega*t)
         y = r*np.sin(omega*t)
 
-        ax.plot(x-35.0,y,zs=-10.0,zdir='z',color='red',linestyle='solid',linewidth=12) #linewidth provides thickness
-        ax.plot(x+35.0,-y,zs=10.0,zdir='z',color='blue',linestyle='solid',linewidth=12) #the minus sign on y causes it to rotate in opposite direction
+        ax.plot(x-35.0, y, zs=-10.0, zdir='z', color='red', linestyle='solid', linewidth=12)  # line width -> thickness
+        ax.plot(x+35.0, -y, zs=10.0, zdir='z', color='blue', linestyle='solid', linewidth=12)  # -y -> opposite rotation
         # for red galaxy.mp4, galaxy.mp4, star_distribution.mp4, red, blue, and yellow circles are used
 
         ax.set_xlim3d([-60.0, 60.0])
@@ -77,9 +75,9 @@ def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0,):
 
         ax.set_title('3D Galaxy')
 
-        #ax.axis('off') #This was for SpiralGalaxies.mp4
+        # ax.axis('off') #This was for SpiralGalaxies.mp4
         ax.view_init(elev=18 * t, azim=0.)
-        #For AzimuthView.mp4, values for elev and azim are reversed
+        # For AzimuthView.mp4, values for elev and azim are reversed
 
         outfile = "Spirals_%04d.png" % iframe
         plt.savefig(outfile)
@@ -88,6 +86,5 @@ def spiral(rmin=-20, rmax=20, npts=1000, t=0.0, tmax=20.0, dt=0.04, iframe=0,):
         t += dt
 
 
-
-if __name__== "__main__":
+if __name__ == "__main__":
     spiral()
