@@ -11,10 +11,9 @@ The main functions used in this code are drawn from Mr. Zingale's spiral_windup 
 https://github.com/zingale/astro_animations/blob/master/galaxies/spiral_windup/spiral_windup.py
 
 Spirals.py produces 500 png images. To transform them into an animation, I used the following command:
-
-'''
+```
 ffmpeg -r 60 -f image2 -s 1920x1080 -i Spirals_%04d.png -vcodec libx264 -crf 25 -pix_fmt yuv420p ThickGalaxies.mp4
-'''
+```
 
 ## Repository Components
 
